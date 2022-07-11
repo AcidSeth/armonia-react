@@ -1,14 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 import React from "react";
 import { Button } from "antd";
+import Header from "./components/Header";
+import Navbar from "./components/Navbar";
+import Users from "./components/Users";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <Button type="primary">Button</Button>
+      <Header />
+      <Navbar />
+      <main>
+        <Users />
+      </main>
     </div>
   );
-}
+};
 
 export default App;
