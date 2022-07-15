@@ -11,11 +11,12 @@ const store = (set) => ({
     const response = await fetch(BASE_URL + "/users");
     set({ users: await response.json(), loading: false });
   },
-  
   removeUser: (id) =>
     set((state) => ({
       users: state.users.filter((user) => user.id !== id),
     })),
 });
+
+
 
 export const useStore = create(store)

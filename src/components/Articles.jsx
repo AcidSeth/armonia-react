@@ -2,9 +2,9 @@ import React from 'react';
 import { Table, Space, Button } from "antd"
 import {useStore} from "../useStore"
 import { useEffect, useCallback } from "react"
-import { getUsers, setUser, addUser, delUser} from "../requests"
+import { getArticles, setArticle, addArticle, delArticle} from "../requests"
 
-const Users = () => {
+const Articles = () => {
     const users = useStore(useCallback(state => state.users, []))
     const loading = useStore(state => state.loading)
 
@@ -56,11 +56,11 @@ const Users = () => {
     
     return (
       <>
-        <h2>Users</h2>
+        <h2>Articles</h2>
         {loading && "Loading Users..."}
         <Table dataSource={users} columns={columns} />
       </>
     )
    }
 
-export default Users;
+export default Articles;
