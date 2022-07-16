@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "../index.css";
 import { Button, Form, Input, Popconfirm, Table, Modal, Radio } from "antd";
 
-const AddArticleForm = ({ visible, onCreate, onCancel }) => {
+const AddUserForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
   return (
     <Modal
       visible={visible}
-      title="Add a new article"
+      title="Add a new user"
       okText="Create"
       cancelText="Cancel"
       onCancel={onCancel}
@@ -60,4 +60,4 @@ const AddArticleForm = ({ visible, onCreate, onCancel }) => {
   );
 };
 
-export default AddArticleForm;
+export default AddUserForm;

@@ -13,6 +13,9 @@ code {
 }
 
 .userImg {
-  width: 62px;
   border-radius: 50px;
+}
+
+.articleImg {
+  border-radius: 5px;
 }

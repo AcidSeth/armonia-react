@@ -1,7 +1,7 @@
 const BASE_URL = "https://62c96230d9ead251e8baf02e.mockapi.io/campus";
 
 const Api = {
-  getUsers: function () {
+  getUsers: () => {
     let requestOptions = {
       method: "GET",
       redirect: "follow",
@@ -11,6 +11,20 @@ const Api = {
       data.json()
     );
   },
+
+  getArticles: () => {
+    let requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    return fetch(BASE_URL + "/articles", requestOptions).then((data) =>
+      data.json()
+    );
+  },
+
+  
+
   addArticle: (item) => {
     return fetch(BASE_URL + "/articles", {
       method: "POST",
