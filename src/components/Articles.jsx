@@ -2,10 +2,18 @@ import React, {useEffect, useState} from 'react';
 import { Table, Space, Button } from "antd"
 import {useStore} from "../useStore"
 import { getArticles, setArticle, addArticle, delArticle} from "../requests"
+import AddArticleForm from "./AddArticleForm"
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
 
+  const [visible, setVisible] = useState(false);
+
+  const onCreate = (values) => {
+    console.log('Received values of form: ', values);
+    setVisible(false);
+  };
+  
   const columns = [
         {
           title: "ID",
@@ -51,13 +59,23 @@ const Articles = () => {
  }, [])
 
   return(<>
-    <form>
-       <label>
-         <p>New Item</p>
-         <input type="text" />
-       </label>
-       <button type="submit">Submit</button>
-     </form>
+   <div>
+      <Button
+        type="primary"
+        onClick={() => {
+          setVisible(true);
+        }}
+      >
+        New Collection
+      </Button>
+      <AddArticleForm
+        visible={visible}
+        onCreate={onCreate}
+        onCancel={() => {
+          setVisible(false);
+        }}
+      />
+    </div>
    <Table dataSource={articles} columns={columns} />
    </>
   )

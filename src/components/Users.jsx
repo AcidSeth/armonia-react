@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { Table, Space, Button } from "antd"
 import {useStore} from "../useStore"
-import { getUsers, setUser, addUser, delUser} from "../requests"
+import Api from "../services/Api"
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -41,7 +41,7 @@ const Users = () => {
 
    useEffect(() => {
     let loading = true;
-    getUsers()
+    Api.getUsers()
      .then(items => {
        if(loading) {
          setUsers(items)
@@ -52,15 +52,8 @@ const Users = () => {
 
   return(
     <>
-    <form>
-       <label>
-         <p>New Item</p>
-         <input type="text" />
-       </label>
-       <button type="submit">Submit</button>
-     </form>
-   <Table dataSource={users} columns={columns} />
-   </>
+    <Table dataSource={users} columns={columns} />
+    </>
   )
 }
 
