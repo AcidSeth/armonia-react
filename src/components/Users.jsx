@@ -1,23 +1,12 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Table, Space, Button } from "antd"
 import {useStore} from "../useStore"
-import { useEffect, useCallback } from "react"
 import { getUsers, setUser, addUser, delUser} from "../requests"
 
 const Users = () => {
-    const users = useStore(useCallback(state => state.users, []))
-    const loading = useStore(state => state.loading)
+  const [users, setUsers] = useState([]);
 
-    const fetchUsers = useStore(state => state.fetchUsers)
-
-    const removeUser = useStore(state => state.removeUser)
-    
-    const onDelete = (id, e) => {
-        e.preventDefault();
-        removeUser(id)
-    }
-    
-    const columns = [
+  const columns = [
         {
           title: "ID",
           dataIndex: "id",
@@ -44,23 +33,35 @@ const Users = () => {
           key: 'action',
           render: (_, record) => (
             <Space size="middle">
-              <Button onClick={(e) => {onDelete(record.id, e)}}>Delete</Button>
+              <Button>Delete</Button>
             </Space>
           ),
         },    
       ];
 
-    useEffect(() => {
-        fetchUsers()
-    }, [fetchUsers])
-    
-    return (
-      <>
-        <h2>Users</h2>
-        {loading && "Loading Users..."}
-        <Table dataSource={users} columns={columns} />
-      </>
-    )
-   }
+   useEffect(() => {
+    let loading = true;
+    getUsers()
+     .then(items => {
+       if(loading) {
+         setUsers(items)
+       }
+     })
+   return () => loading = false;
+ }, [])
+
+  return(
+    <>
+    <form>
+       <label>
+         <p>New Item</p>
+         <input type="text" />
+       </label>
+       <button type="submit">Submit</button>
+     </form>
+   <Table dataSource={users} columns={columns} />
+   </>
+  )
+}
 
 export default Users;
