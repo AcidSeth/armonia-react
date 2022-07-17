@@ -23,17 +23,10 @@ const AddUserForm = ({ visible, onCreate, onCancel }) => {
           });
       }}
     >
-      <Form
-        form={form}
-        layout="vertical"
-        name="form_in_modal"
-        initialValues={{
-          modifier: "public",
-        }}
-      >
+      <Form form={form} layout="vertical" name="form_in_modal">
         <Form.Item
-          name="title"
-          label="Title"
+          name="name"
+          label="Name"
           rules={[
             {
               required: true,
@@ -43,17 +36,10 @@ const AddUserForm = ({ visible, onCreate, onCancel }) => {
         >
           <Input />
         </Form.Item>
-        <Form.Item name="description" label="Description">
+        <Form.Item name="image" label="Image URL">
           <Input type="textarea" />
         </Form.Item>
-        <Form.Item
-          name="modifier"
-          className="collection-create-form_last-form-item"
-        >
-          <Radio.Group>
-            <Radio value="public">Public</Radio>
-            <Radio value="private">Private</Radio>
-          </Radio.Group>
+        <Form.Item name="modifier" className="user-create-form_last-form-item">
         </Form.Item>
       </Form>
     </Modal>

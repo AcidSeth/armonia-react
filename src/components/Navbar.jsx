@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Menu } from "antd";
+import { Menu, Layout } from "antd";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -9,10 +9,16 @@ import {
   BookOutlined,
 } from "@ant-design/icons";
 
-const Sider = (props) => {
+const { Header, Content, Sider } = Layout;
+
+const Navbar = (props) => {
   return (
     <Menu
       mode="horizontal"
+      style={{
+        height: "100%",
+        borderRight: 0,
+      }}
       className="sider"
       theme="dark"
       defaultSelectedKeys={[props.selectedKey]}
@@ -36,4 +42,4 @@ const Sider = (props) => {
   );
 };
 
-export default Sider;
+export default Navbar;

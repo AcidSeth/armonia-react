@@ -42,10 +42,11 @@ const Api = {
     }).then((data) => data.json());
   },
 
-  editArticle: (item) => {
-    return fetch(BASE_URL + "/articles/" + item.id, {
+  editArticle: (id, item) => {
+    return fetch(BASE_URL + "/articles/" + id, {
       method: "POST",
       headers: {
+        "Accept": "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(item),

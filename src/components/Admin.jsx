@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Badge, Space, Menu, Dropdown, Icon, Spin } from "antd";
+import { Table, Button, Space, Image } from "antd";
 import {
   DownOutlined,
   UserAddOutlined,
@@ -27,7 +27,7 @@ const Admin = () => {
       dataIndex: "avatar",
       key: "avatar",
       render: (text, record) => {
-        return <img className="userImg" src={record.avatar} />;
+        return <Image width="64px" className="userImg" src={record.avatar} />;
       },
     },
     {
@@ -109,9 +109,8 @@ const Admin = () => {
   };
 
   const handleExpand = (expanded, record) => {
-    console.log(record);
     let articlesData = [];
-    articlesData = record.articlesIds.map((element, i) => {
+    articlesData = record.articlesIds.map((element) => {
       return articles[element];
     });
     setIsLoading({

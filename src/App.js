@@ -3,7 +3,7 @@ import React from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { Layout } from "antd";
 import Header from "./components/Header";
-import Sider from "./components/Sider";
+import Navbar from "./components/Navbar";
 import Users from "./components/Users";
 import Articles from "./components/Articles";
 import Admin from "./components/Admin";
@@ -17,7 +17,7 @@ const App = () => {
     <div className="App">
       <Layout>
         <Header />
-        <Sider />
+        <Navbar />
       </Layout>
       <Outlet />
     </div>

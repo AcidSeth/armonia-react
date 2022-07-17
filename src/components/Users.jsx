@@ -72,7 +72,7 @@ const Users = () => {
             setVisible(true);
           }}
         >
-          New Collection
+          New User
         </Button>
         <AddUserForm
           visible={visible}

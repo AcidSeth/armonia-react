@@ -23,14 +23,7 @@ const AddArticleForm = ({ visible, onCreate, onCancel }) => {
           });
       }}
     >
-      <Form
-        form={form}
-        layout="vertical"
-        name="form_in_modal"
-        initialValues={{
-          modifier: "public",
-        }}
-      >
+      <Form form={form} layout="vertical" name="form_in_modal">
         <Form.Item
           name="name"
           label="Name"
@@ -46,11 +39,13 @@ const AddArticleForm = ({ visible, onCreate, onCancel }) => {
         <Form.Item name="description" label="Description">
           <Input type="textarea" />
         </Form.Item>
+        <Form.Item name="picture" label="Image URL">
+          <Input type="textarea" />
+        </Form.Item>
         <Form.Item
           name="modifier"
-          className="collection-create-form_last-form-item"
-        >
-        </Form.Item>
+          className="article-create-form_last-form-item"
+        ></Form.Item>
       </Form>
     </Modal>
   );

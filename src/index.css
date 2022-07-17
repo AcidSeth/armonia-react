@@ -17,5 +17,7 @@ code {
 }
 
 .articleImg {
+  height: 84px;
+  width: 64px;
   border-radius: 5px;
 }

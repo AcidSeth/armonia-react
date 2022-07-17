@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Table, Space, Button, Image, message, Modal, Input } from "antd";
-import { useStore } from "../useStore";
+import { Table, Space, Button, Image, message, Modal, Input, Form, Textarea } from "antd";
+import { BookOutlined } from "@ant-design/icons";
 import Api from "../services/Api";
 import AddArticleForm from "./AddArticleForm";
+// import { useStore } from "../useStore";
+
+const { TextArea } = Input;
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
@@ -24,23 +27,21 @@ const Articles = () => {
   };
 
   const onDelete = (id, e) => {
-    e.preventDefault();
     Api.deleteArticle(id).then((data) => {
       message.success("Deleted book with id " + data.id);
       setRefresh(true);
     });
   };
 
-  const onEdit = (item, e) => {
-    e.preventDefault();
+  const onEdit = (id, record) => {
     setIsEditing(true);
-    setEditingArticle({ ...item });
-    /*  Api.editArticle(item).then((data) => {
-      message.success("Updated book with id " + data.id);
-      setRefresh(true);
-    });*/
+    setEditingArticle({ ...id });
+    // Api.editArticle(id, record).then((data) => {
+    //   message.success("Updated book with id " + data.id);
+    //   setRefresh(true);
+    // });
   };
-
+  
   const columns = [
     {
       title: "ID",
@@ -63,7 +64,7 @@ const Articles = () => {
       },
     },
     {
-      title: "First Name",
+      title: "Book Title",
       dataIndex: "name",
       key: "name",
       sorter: (a, b) => a.name.localeCompare(b.name),
@@ -76,7 +77,7 @@ const Articles = () => {
         <Space size="middle">
           <Button
             onClick={(e) => {
-              onEdit(record.id, e);
+              onEdit(record.id, record);
             }}
           >
             Edit
@@ -104,6 +105,14 @@ const Articles = () => {
     return () => (loading = false);
   }, [refresh]);
 
+  const onFinish = (values) => {
+    console.log("Success:", values);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
     <>
       <div>
@@ -116,7 +125,7 @@ const Articles = () => {
           New Book
         </Button>
         <Modal
-          title="edit"
+          title="Edit Book"
           visible={isEditing}
           onCreate={isEditing}
           onCancel={() => {
@@ -126,7 +135,40 @@ const Articles = () => {
             setIsEditing(false);
           }}
         >
-          <Input value={editingArticle?.id}></Input>
+          <Form
+            name="basic"
+            layout="vertical"
+            labelCol={{
+              span: 8,
+            }}
+            wrapperCol={{
+              span: 16,
+            }}
+            initialValues={{
+              remember: true,
+            }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+          >
+            <Form.Item>
+              <Input
+                size="large"
+                placeholder="Book title"
+                prefix={<BookOutlined />}
+                value={editingArticle?.name}
+              />
+            </Form.Item>
+            <Form.Item>
+              <Input value={editingArticle?.id} />
+            </Form.Item>
+            <Form.Item>
+              <TextArea rows={4} value={editingArticle?.description} />
+            </Form.Item>
+            <Form.Item>
+              <Input value={editingArticle?.picture} />
+            </Form.Item>
+          </Form>
         </Modal>
         <AddArticleForm
           visible={visible}
