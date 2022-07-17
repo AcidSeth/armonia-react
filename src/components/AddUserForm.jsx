@@ -37,7 +37,7 @@ const AddUserForm = ({ visible, onCreate, onCancel }) => {
           rules={[
             {
               required: true,
-              message: "Please input the title of collection!",
+              message: "Please input the user name!",
             },
           ]}
         >

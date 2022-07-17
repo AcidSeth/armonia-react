@@ -32,12 +32,12 @@ const AddArticleForm = ({ visible, onCreate, onCancel }) => {
         }}
       >
         <Form.Item
-          name="title"
-          label="Title"
+          name="name"
+          label="Name"
           rules={[
             {
               required: true,
-              message: "Please input the title of collection!",
+              message: "Please input the title of the article!",
             },
           ]}
         >
@@ -50,10 +50,6 @@ const AddArticleForm = ({ visible, onCreate, onCancel }) => {
           name="modifier"
           className="collection-create-form_last-form-item"
         >
-          <Radio.Group>
-            <Radio value="public">Public</Radio>
-            <Radio value="private">Private</Radio>
-          </Radio.Group>
         </Form.Item>
       </Form>
     </Modal>

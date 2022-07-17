@@ -1,82 +1,20 @@
-import React, {useState} from "react";
-import { Button, Dropdown, Menu, Space, Table } from "antd";
+import React, { useEffect, useState } from "react";
+import { Table, Button, Badge, Space, Menu, Dropdown, Icon, Spin } from "antd";
 import {
   DownOutlined,
   UserAddOutlined,
   AppstoreAddOutlined,
 } from "@ant-design/icons";
-import AddUserForm from "./AddUserForm";
 // import {useStore} from "../useStore"
 // import { useEffect, useCallback } from "react"
+import Api from "../services/Api";
+import { useStore } from "../useStore";
 
 const Admin = () => {
-  const [visible, setVisible] = useState(false);
-
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisible(false);
-  };
-
-  const expandedRowRender = () => {
-    const columns = [
-      {
-        title: "Name",
-        dataIndex: "name",
-        key: "name",
-      },
-      {
-        title: "",
-        dataIndex: "",
-        key: "",
-      },
-      {
-        title: "",
-        dataIndex: "",
-        key: "",
-      },
-      {
-        title: "",
-        dataIndex: "",
-        key: "",
-      },
-      {
-        title: "",
-        dataIndex: "",
-        key: "",
-      },
-      {
-        title: "",
-        dataIndex: "",
-        key: "",
-      },
-      {
-        title: "Action",
-        key: "operation",
-        render: (_, record) => (
-          <Space size="middle">
-            <Button>Edit</Button>
-            <Button
-            //   onClick={(e) => {onDelete(record.id, e)}}
-            >
-              Delete
-            </Button>
-          </Space>
-        ),
-      },
-    ];
-    const data = [];
-
-    // id da "articleIds" dell'user attuale -> articles mappato in ogni riga di tabella innestata
-
-    for (let i = 0; i < 3; ++i) {
-      data.push({
-        key: i.toString(),
-        name: "AAAAAAAAAAAAA",
-      });
-    }
-
-    return <Table columns={columns} dataSource={data} pagination={false} />;
-  };
+  const [nestedData, setNestedData] = useState({});
+  const [isLoading, setIsLoading] = useState({});
+  const [articles, setArticles] = useState([]);
+  const [users, setUsers] = useState([]);
 
   const columns = [
     {
@@ -108,53 +46,94 @@ const Admin = () => {
             Add Book <AppstoreAddOutlined />
           </Button>
           <Button>Edit</Button>
-          <Button
-          //   onClick={(e) => {onDelete(record.id, e)}}
-          >
-            Delete
-          </Button>
+          <Button>Delete</Button>
         </Space>
       ),
     },
   ];
 
-  const data = [];
-
-  for (let i = 0; i < 3; ++i) {
-    data.push({
-      key: i.toString(),
-      name: "",
+  useEffect(() => {
+    let loading = true;
+    Api.getUsers().then((items) => {
+      if (loading) {
+        setUsers(items);
+      }
     });
-  }
+    return () => (loading = false);
+  }, []);
+
+  useEffect(() => {
+    let loading = true;
+    Api.getArticles().then((items) => {
+      if (loading) {
+        setArticles(items);
+      }
+    });
+    return () => (loading = false);
+  }, []);
+
+  const expandedRowRender = (record) => {
+    const columns = [
+      {
+        title: "ID",
+        dataIndex: "id",
+        key: "id",
+      },
+      {
+        title: "",
+        dataIndex: "picture",
+        key: "picture",
+        render: (text, record) => {
+          return <img className="articleImg" src={record.picture} />;
+        },
+      },
+      {
+        title: "Book Title",
+        dataIndex: "name",
+        key: "name",
+        sorter: (a, b) => a.name.localeCompare(b.name),
+        sortDirections: ["ascend", "descend", "ascend"],
+      },
+    ];
+
+    const data = nestedData[record.id];
+
+    return (
+      <Table
+        loading={isLoading[record.id] && !data}
+        columns={columns}
+        dataSource={nestedData[record.id]}
+        pagination={false}
+      />
+    );
+  };
+
+  const handleExpand = (expanded, record) => {
+    console.log(record);
+    let articlesData = [];
+    articlesData = record.articlesIds.map((element, i) => {
+      return articles[element];
+    });
+    setIsLoading({
+      [record.id]: true,
+    });
+    setNestedData((state) => ({
+      ...state,
+      [record.id]: articlesData,
+    }));
+    setIsLoading({
+      [record.id]: false,
+    });
+  };
 
   return (
-    <>
-      <div>
-        <Button
-          type="primary"
-          onClick={() => {
-            setVisible(true);
-          }}
-        >
-          New Collection
-        </Button>
-        <AddUserForm
-          visible={visible}
-          onCreate={onCreate}
-          onCancel={() => {
-            setVisible(false);
-          }}
-        />
-      </div>
-      <Table
-        columns={columns}
-        expandable={{
-          expandedRowRender,
-          defaultExpandedRowKeys: ["0"],
-        }}
-        dataSource={data}
-      />
-    </>
+    <Table
+      className="components-table-demo-nested"
+      columns={columns}
+      expandedRowRender={expandedRowRender}
+      onExpand={handleExpand}
+      dataSource={users}
+    />
   );
 };
 

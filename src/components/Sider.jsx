@@ -12,7 +12,7 @@ import {
 const Sider = (props) => {
   return (
     <Menu
-      mode="inline"
+      mode="horizontal"
       className="sider"
       theme="dark"
       defaultSelectedKeys={[props.selectedKey]}

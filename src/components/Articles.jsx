@@ -1,17 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { Table, Space, Button, Image } from "antd";
+import { Table, Space, Button, Image, message, Modal, Input } from "antd";
 import { useStore } from "../useStore";
 import Api from "../services/Api";
 import AddArticleForm from "./AddArticleForm";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
+  const [editingArticle, setEditingArticle] = useState([]);
 
+  const [refresh, setRefresh] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisible(false);
+    Api.addArticle({
+      name: values.name,
+      description: values.description,
+    }).then((data) => {
+      message.success("Added book with id " + data.id);
+      setVisible(false);
+      setRefresh(true);
+    });
+  };
+
+  const onDelete = (id, e) => {
+    e.preventDefault();
+    Api.deleteArticle(id).then((data) => {
+      message.success("Deleted book with id " + data.id);
+      setRefresh(true);
+    });
+  };
+
+  const onEdit = (item, e) => {
+    e.preventDefault();
+    setIsEditing(true);
+    setEditingArticle({ ...item });
+    /*  Api.editArticle(item).then((data) => {
+      message.success("Updated book with id " + data.id);
+      setRefresh(true);
+    });*/
   };
 
   const columns = [
@@ -47,7 +74,20 @@ const Articles = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <Button>Delete</Button>
+          <Button
+            onClick={(e) => {
+              onEdit(record.id, e);
+            }}
+          >
+            Edit
+          </Button>
+          <Button
+            onClick={(e) => {
+              onDelete(record.id, e);
+            }}
+          >
+            Delete
+          </Button>
         </Space>
       ),
     },
@@ -58,10 +98,11 @@ const Articles = () => {
     Api.getArticles().then((items) => {
       if (loading) {
         setArticles(items);
+        setRefresh(false);
       }
     });
     return () => (loading = false);
-  }, []);
+  }, [refresh]);
 
   return (
     <>
@@ -72,8 +113,21 @@ const Articles = () => {
             setVisible(true);
           }}
         >
-          New Collection
+          New Book
         </Button>
+        <Modal
+          title="edit"
+          visible={isEditing}
+          onCreate={isEditing}
+          onCancel={() => {
+            setIsEditing(false);
+          }}
+          onOk={() => {
+            setIsEditing(false);
+          }}
+        >
+          <Input value={editingArticle?.id}></Input>
+        </Modal>
         <AddArticleForm
           visible={visible}
           onCreate={onCreate}
