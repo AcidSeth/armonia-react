@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Table, Space, Button, Image, message, Modal, Input, Form, Textarea } from "antd";
+import {
+  Table,
+  Space,
+  Button,
+  Image,
+  message,
+  Modal,
+  Input,
+  Form,
+  Textarea,
+} from "antd";
 import { BookOutlined } from "@ant-design/icons";
 import Api from "../services/Api";
 import AddArticleForm from "./AddArticleForm";
@@ -9,7 +19,7 @@ const { TextArea } = Input;
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
-  const [editingArticle, setEditingArticle] = useState([]);
+  const [editingArticle, setEditingArticle] = useState(null);
 
   const [refresh, setRefresh] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -33,15 +43,11 @@ const Articles = () => {
     });
   };
 
-  const onEdit = (id, record) => {
+  const onEdit = (record) => {
     setIsEditing(true);
-    setEditingArticle({ ...id });
-    // Api.editArticle(id, record).then((data) => {
-    //   message.success("Updated book with id " + data.id);
-    //   setRefresh(true);
-    // });
+    setEditingArticle({ ...record });
   };
-  
+
   const columns = [
     {
       title: "ID",
@@ -76,12 +82,13 @@ const Articles = () => {
       render: (_, record) => (
         <Space size="middle">
           <Button
-            onClick={(e) => {
-              onEdit(record.id, record);
+            onClick={() => {
+              onEdit(record);
             }}
           >
             Edit
           </Button>
+
           <Button
             onClick={(e) => {
               onDelete(record.id, e);
@@ -106,7 +113,10 @@ const Articles = () => {
   }, [refresh]);
 
   const onFinish = (values) => {
-    console.log("Success:", values);
+    // Api.editArticle(record).then((data) => {
+    //   message.success("Updated book with id " + data.id);
+    //   setRefresh(true);
+    // }); 
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -156,14 +166,14 @@ const Articles = () => {
                 size="large"
                 placeholder="Book title"
                 prefix={<BookOutlined />}
-                value={editingArticle?.name}
+                defaultValue={editingArticle?.name}
               />
             </Form.Item>
             <Form.Item>
-              <Input value={editingArticle?.id} />
+              <Input defaultValue={editingArticle?.id} />
             </Form.Item>
             <Form.Item>
-              <TextArea rows={4} value={editingArticle?.description} />
+              <TextArea rows={4} defaultValue={editingArticle?.description} />
             </Form.Item>
             <Form.Item>
               <Input value={editingArticle?.picture} />
