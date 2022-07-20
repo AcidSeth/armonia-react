@@ -1,18 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-  Table,
-  Space,
-  Button,
-  Image,
-  message,
-  Modal,
-  Input,
-  Form,
-  Textarea,
-} from "antd";
+import { Table, Space, Button, Image, message, Modal, Input, Form } from "antd";
 import { BookOutlined } from "@ant-design/icons";
 import Api from "../services/Api";
 import AddArticleForm from "./AddArticleForm";
+import { triggerFocus } from "antd/lib/input/Input";
 // import { useStore } from "../useStore";
 
 const { TextArea } = Input;
@@ -112,11 +103,12 @@ const Articles = () => {
     return () => (loading = false);
   }, [refresh]);
 
-  const onFinish = (values) => {
-    // Api.editArticle(record).then((data) => {
-    //   message.success("Updated book with id " + data.id);
-    //   setRefresh(true);
-    // }); 
+  const onFinish = (editingArticle) => {
+    console.log("Success:", editingArticle);
+    Api.editArticle(editingArticle).then((data) => {
+      message.success("Updated book with id " + data.id);
+      setRefresh(true);
+    });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -137,6 +129,11 @@ const Articles = () => {
         <Modal
           title="Edit Book"
           visible={isEditing}
+          footer={[
+            <Button form="myForm" key="submit" htmlType="submit">
+              Submit
+            </Button>,
+          ]}
           onCreate={isEditing}
           onCancel={() => {
             setIsEditing(false);
@@ -146,6 +143,7 @@ const Articles = () => {
           }}
         >
           <Form
+            id="myForm"
             name="basic"
             layout="vertical"
             labelCol={{
@@ -163,23 +161,51 @@ const Articles = () => {
           >
             <Form.Item>
               <Input
+                value={editingArticle?.name}
+                onChange={(e) => {
+                  setEditingArticle((prev) => {
+                    return { ...prev, name: e.target.value };
+                  });
+                }}
                 size="large"
                 placeholder="Book title"
                 prefix={<BookOutlined />}
-                defaultValue={editingArticle?.name}
               />
             </Form.Item>
             <Form.Item>
-              <Input defaultValue={editingArticle?.id} />
+              <Input
+                value={editingArticle?.id}
+                onChange={(e) => {
+                  setEditingArticle((prev) => {
+                    return { ...prev, id: e.target.value };
+                  });
+                }}
+              />
             </Form.Item>
             <Form.Item>
-              <TextArea rows={4} defaultValue={editingArticle?.description} />
+              <TextArea
+                rows={4}
+                value={editingArticle?.description}
+                onChange={(e) => {
+                  setEditingArticle((prev) => {
+                    return { ...prev, description: e.target.value };
+                  });
+                }}
+              />
             </Form.Item>
             <Form.Item>
-              <Input value={editingArticle?.picture} />
+              <Input
+                value={editingArticle?.picture}
+                onChange={(e) => {
+                  setEditingArticle((prev) => {
+                    return { ...prev, picture: e.target.value };
+                  });
+                }}
+              />
             </Form.Item>
           </Form>
         </Modal>
+
         <AddArticleForm
           visible={visible}
           onCreate={onCreate}
@@ -188,6 +214,7 @@ const Articles = () => {
           }}
         />
       </div>
+
       <Table dataSource={articles} columns={columns} />
     </>
   );
