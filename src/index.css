@@ -22,15 +22,43 @@ code {
   border-radius: 5px;
 }
 
-main {
-  margin: "auto";
-  padding: 1.5rem 9rem;
+#root {
+  flex: 1;
 }
 
-.header {
+.ant-layout {
   display: flex;
 }
 
-.navbar {
-  min-width: 5rem;
+main {
+  padding: 2rem 6rem;
+  display: flex;
+  flex: 1;
+  flex-flow: column;
+}
+
+.ant-table-wrapper.components-table-demo-nested {
+  padding: 4rem 0rem;
+}
+
+main > div:nth-child(1) {
+  display: flex;
+  justify-content: flex-start;
+  padding: 15px 20px;
+}
+
+.ant-btn.ant-btn-primary {
+  color: white;
+  background-color: rgb(0, 96, 230);
+}
+
+.ant-col > label,
+.ant-form-item-control-input-content {
+  color: rgb(86, 54, 0);
+  line-height: 30px;
+}
+
+.anticon.anticon-file-image > svg {
+  width: 32px;
+  height: 32px;
 }
