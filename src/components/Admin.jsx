@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Space, Image } from "antd";
-import {
-  DownOutlined,
-  UserAddOutlined,
-  AppstoreAddOutlined,
-  FileImageOutlined,
-} from "@ant-design/icons";
-// import {useStore} from "../useStore"
-// import { useEffect, useCallback } from "react"
+import { AppstoreAddOutlined, FileImageOutlined } from "@ant-design/icons";
 import Api from "../services/Api";
-import { useStore } from "../services/store/store";
 
 const Admin = () => {
   const [nestedData, setNestedData] = useState({});
@@ -87,18 +79,17 @@ const Admin = () => {
         key: "picture",
         render: (text, record) => {
           if (record?.picture === undefined) {
-            return (<FileImageOutlined />);
+            return <FileImageOutlined />;
           } else
-          return (
-            <Image
-              width="84px"
-              height="64px"
-              className="articleImg"
-              src={record.picture}
-            />
-          );
+            return (
+              <Image
+                width="84px"
+                height="64px"
+                className="articleImg"
+                src={record.picture}
+              />
+            );
         },
-        
       },
       {
         title: "Book Title",
@@ -107,7 +98,6 @@ const Admin = () => {
         sorter: (a, b) => a.name.localeCompare(b.name),
         sortDirections: ["ascend", "descend", "ascend"],
       },
-      // console.log(record),
     ];
 
     const data = nestedData[record.id];
@@ -116,7 +106,7 @@ const Admin = () => {
       <Table
         loading={isLoading[record.id] && !data}
         columns={columns}
-        dataSource={nestedData[record.id]}
+        dataSource={data}
         pagination={false}
       />
     );
@@ -125,8 +115,10 @@ const Admin = () => {
   const handleExpand = (expanded, record) => {
     let articlesData = [];
     articlesData = record.articlesIds.map((element) => {
-      return articles[element];
+      let article = articles.filter((x) => x.id == element);
+      return article[0];
     });
+    // console.log(articlesData)
     setIsLoading({
       [record.id]: true,
     });
