@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Menu } from "antd";
+import { Menu, Layout } from "antd";
 import {
   AuditOutlined,
   UserOutlined,
@@ -10,12 +10,7 @@ import {
 const Navbar = (props) => {
   return (
     <Menu
-      mode="vertical"
-      style={{
-        position: "fixed",
-        height: "100%",
-        borderRight: 0,
-      }}
+      mode="horizontal"
       className="navbar"
       theme="dark"
       defaultSelectedKeys={[props.selectedKey]}

@@ -167,6 +167,7 @@ const Articles = () => {
             autoComplete="off"
           >
             <Form.Item>
+              Book Title
               <Input
                 value={editingArticle?.name}
                 onChange={(e) => {
@@ -180,6 +181,7 @@ const Articles = () => {
               />
             </Form.Item>
             <Form.Item>
+            ID
               <Input
                 value={editingArticle?.id}
                 onChange={(e) => {
@@ -190,6 +192,7 @@ const Articles = () => {
               />
             </Form.Item>
             <Form.Item>
+            Description
               <TextArea
                 rows={4}
                 value={editingArticle?.description}
@@ -201,6 +204,7 @@ const Articles = () => {
               />
             </Form.Item>
             <Form.Item>
+              Picture URL
               <Input
                 value={editingArticle?.picture}
                 onChange={(e) => {

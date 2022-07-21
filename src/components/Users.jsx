@@ -159,6 +159,7 @@ const Users = () => {
             autoComplete="off"
           >
             <Form.Item>
+              Name and Surname
               <Input
                 value={editingUser?.name}
                 onChange={(e) => {
@@ -172,6 +173,7 @@ const Users = () => {
               />
             </Form.Item>
             <Form.Item>
+              ID
               <Input
                 value={editingUser?.id}
                 onChange={(e) => {
@@ -182,6 +184,7 @@ const Users = () => {
               />
             </Form.Item>
             <Form.Item>
+              Books Owned
               <Input
                 value={editingUser?.articlesIds}
                 onChange={(e) => {
@@ -195,6 +198,7 @@ const Users = () => {
               />
             </Form.Item>
             <Form.Item>
+              Birthdate
               <Input
                 value={editingUser?.birthdate}
                 onChange={(e) => {
@@ -205,6 +209,7 @@ const Users = () => {
               />
             </Form.Item>
             <Form.Item>
+              Picture URL
               <Input
                 value={editingUser?.avatar}
                 onChange={(e) => {
