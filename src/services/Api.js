@@ -33,12 +33,41 @@ const Api = {
     }).then((data) => data.json());
   },
 
+  deleteUser: (id) => {
+    return fetch(BASE_URL + "/users/" + id, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((data) => data.json());
+  },
+
   deleteArticle: (id) => {
     return fetch(BASE_URL + "/articles/" + id, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
+    }).then((data) => data.json());
+  },
+
+  editArticle: (item) => {
+    return fetch(BASE_URL + "/users/" + item.id, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(item),
+    }).then((data) => data.json());
+  },
+
+  editUser: (item) => {
+    return fetch(BASE_URL + "/users/" + item.id, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(item),
     }).then((data) => data.json());
   },
 

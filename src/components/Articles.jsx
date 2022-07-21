@@ -29,7 +29,7 @@ const Articles = () => {
     });
   };
 
-  const onDelete = (id, e) => {
+  const onDelete = (id) => {
     Modal.confirm({
       title: "Delete this book?",
       okText: "Yes",

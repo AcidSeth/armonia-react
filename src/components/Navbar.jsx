@@ -14,8 +14,9 @@ const { Header, Content, Sider } = Layout;
 const Navbar = (props) => {
   return (
     <Menu
-      mode="horizontal"
+      mode="vertical"
       style={{
+        position: "fixed",
         height: "100%",
         borderRight: 0,
       }}

@@ -5,7 +5,7 @@ import { HomeOutlined, HomeFilled } from "@ant-design/icons";
 const Header = () => {
   return (
     <PageHeader
-      className="site-page-header"
+      className="header"
       onBack={() => null}
       backIcon={<HomeFilled />}
       title="Armonia Book Library"
