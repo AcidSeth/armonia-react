@@ -19,7 +19,9 @@ const Articles = () => {
   const onCreate = (values) => {
     Api.addArticle({
       name: values.name,
+      id: values.id,
       description: values.description,
+      picture: values.picture,
     }).then((data) => {
       message.success("Added book with id " + data.id);
       setVisible(false);
@@ -103,10 +105,10 @@ const Articles = () => {
     return () => (loading = false);
   }, [refresh]);
 
-  const onFinish = (editingArticle) => {
-    console.log("Success:", editingArticle);
+  const onFinish = (values) => {
     Api.editArticle(editingArticle).then((data) => {
       message.success("Updated book with id " + data.id);
+      setIsEditing(false);
       setRefresh(true);
     });
   };
