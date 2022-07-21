@@ -15,8 +15,8 @@ import Admin from "./components/Admin";
 const App = () => {
   return (
     <div className="App">
-      <Layout>
         <Header />
+      <Layout>
         <Navbar />
       </Layout>
       <Outlet />
