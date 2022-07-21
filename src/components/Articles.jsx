@@ -30,9 +30,16 @@ const Articles = () => {
   };
 
   const onDelete = (id, e) => {
-    Api.deleteArticle(id).then((data) => {
-      message.success("Deleted book with id " + data.id);
-      setRefresh(true);
+    Modal.confirm({
+      title: "Delete this book?",
+      okText: "Yes",
+      okType: "danger",
+      onOk: () => {
+        Api.deleteArticle(id).then((data) => {
+          message.success("Deleted book with id " + data.id);
+          setRefresh(true);
+        });
+      },
     });
   };
 
