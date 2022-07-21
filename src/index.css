@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
 }
 
 code {
@@ -39,6 +40,10 @@ main {
 
 .ant-table-wrapper.components-table-demo-nested {
   padding: 4rem 0rem;
+}
+
+.ant-spin-nested-loading{
+  width: 100%;
 }
 
 main > div:nth-child(1) {
