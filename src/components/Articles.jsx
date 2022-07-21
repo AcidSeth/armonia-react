@@ -3,8 +3,6 @@ import { Table, Space, Button, Image, message, Modal, Input, Form } from "antd";
 import { BookOutlined } from "@ant-design/icons";
 import Api from "../services/Api";
 import AddArticleForm from "./AddArticleForm";
-import { triggerFocus } from "antd/lib/input/Input";
-// import { useStore } from "../useStore";
 
 const { TextArea } = Input;
 

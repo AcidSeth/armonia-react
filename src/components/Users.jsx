@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table, Space, Button, Image, message, Modal, Input, Form } from "antd";
-import { BookOutlined } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import Api from "../services/Api";
 import AddUserForm from "./AddUserForm";
 import { triggerFocus } from "antd/lib/input/Input";
@@ -58,17 +58,11 @@ const Users = () => {
       dataIndex: "avatar",
       key: "avatar",
       render: (text, record) => {
-        return (
-          <Image
-            width="64px"
-            className="userImg"
-            src={record.avatar}
-          />
-        );
+        return <Image width="64px" className="userImg" src={record.avatar} />;
       },
     },
     {
-      title: "Book Title",
+      title: "User Title",
       dataIndex: "name",
       key: "name",
       sorter: (a, b) => a.name.localeCompare(b.name),
@@ -131,10 +125,10 @@ const Users = () => {
             setVisible(true);
           }}
         >
-          New Book
+          New User
         </Button>
         <Modal
-          title="Edit Book"
+          title="Edit User"
           visible={isEditing}
           footer={[
             <Button form="myForm" key="submit" htmlType="submit">
@@ -175,8 +169,8 @@ const Users = () => {
                   });
                 }}
                 size="large"
-                placeholder="Book title"
-                prefix={<BookOutlined />}
+                placeholder="User title"
+                prefix={<UserOutlined />}
               />
             </Form.Item>
             <Form.Item>
@@ -194,7 +188,10 @@ const Users = () => {
                 value={editingUser?.articlesIds}
                 onChange={(e) => {
                   setEditingUser((prev) => {
-                    return { ...prev, articlesIds: [e.target.value.split] };
+                    return {
+                      ...prev,
+                      articlesIds: e.target.value.split(",").map(Number),
+                    };
                   });
                 }}
               />
