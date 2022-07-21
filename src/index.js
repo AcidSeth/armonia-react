@@ -12,9 +12,9 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
-        <Route path="admin" element={<Admin />} />
-        <Route path="users" element={<Users />} />
-        <Route path="articles" element={<Articles />}></Route>
+        <Route path="admin" element={<main>{<Admin />}</main>} />
+        <Route path="users" element={<main>{<Users />}</main>} />
+        <Route path="articles" element={<main>{<Articles />}</main>}></Route>
         <Route
           path="*"
           element={
