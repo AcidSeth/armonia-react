@@ -12,7 +12,7 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
-        <Route path="admin" element={<main>{<Admin />}</main>} />
+        <Route path="admin" element={<main style={{ padding: "3.5rem 9rem" }}>{<Admin />}</main>} />
         <Route path="users" element={<main>{<Users />}</main>} />
         <Route path="articles" element={<main>{<Articles />}</main>}></Route>
         <Route

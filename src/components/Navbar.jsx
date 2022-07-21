@@ -20,7 +20,7 @@ const Navbar = (props) => {
         height: "100%",
         borderRight: 0,
       }}
-      className="sider"
+      className="navbar"
       theme="dark"
       defaultSelectedKeys={[props.selectedKey]}
     >

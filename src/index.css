@@ -24,9 +24,13 @@ code {
 
 main {
   margin: "auto";
-  padding: 8rem;
+  padding: 1.5rem 9rem;
 }
 
 .header {
   display: flex;
+}
+
+.navbar {
+  min-width: 5rem;
 }

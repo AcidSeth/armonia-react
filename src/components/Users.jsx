@@ -22,7 +22,7 @@ const Users = () => {
       avatar: values.avatar,
       articleIds: values.articleIds,
     }).then((data) => {
-      message.success("Added book with id " + data.id);
+      message.success("Added user with id " + data.id);
       setVisible(false);
       setRefresh(true);
     });
@@ -112,7 +112,7 @@ const Users = () => {
 
   const onFinish = (values) => {
     Api.editUser(editingUser).then((data) => {
-      message.success("Updated book with id " + data.id);
+      message.success("Updated user with id " + data.id);
       setIsEditing(false);
       setRefresh(true);
     });
@@ -194,7 +194,7 @@ const Users = () => {
                 value={editingUser?.articlesIds}
                 onChange={(e) => {
                   setEditingUser((prev) => {
-                    return { ...prev, articlesIds: [e.target.value] };
+                    return { ...prev, articlesIds: [e.target.value.split] };
                   });
                 }}
               />
