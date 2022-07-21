@@ -3,8 +3,6 @@ import { Table, Space, Button, Image, message, Modal, Input, Form } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Api from "../services/Api";
 import AddUserForm from "./AddUserForm";
-import { triggerFocus } from "antd/lib/input/Input";
-// import { useStore } from "../useStore";
 
 const Users = () => {
   const [users, setUsers] = useState([]);

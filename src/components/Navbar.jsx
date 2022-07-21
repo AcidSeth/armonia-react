@@ -1,15 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Menu, Layout } from "antd";
+import { Menu } from "antd";
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
   AuditOutlined,
   UserOutlined,
   BookOutlined,
 } from "@ant-design/icons";
-
-const { Header, Content, Sider } = Layout;
 
 const Navbar = (props) => {
   return (

@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React from "react";
 import "../index.css";
-import { Button, Form, Input, Popconfirm, Table, Modal, Radio } from "antd";
+import { Form, Input, Modal } from "antd";
 
 const AddUserForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
@@ -39,8 +39,10 @@ const AddUserForm = ({ visible, onCreate, onCancel }) => {
         <Form.Item name="image" label="Image URL">
           <Input type="textarea" />
         </Form.Item>
-        <Form.Item name="modifier" className="user-create-form_last-form-item">
-        </Form.Item>
+        <Form.Item
+          name="modifier"
+          className="user-create-form_last-form-item"
+        ></Form.Item>
       </Form>
     </Modal>
   );
