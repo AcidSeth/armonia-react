@@ -4,16 +4,17 @@ import {
   DownOutlined,
   UserAddOutlined,
   AppstoreAddOutlined,
+  FileImageOutlined,
 } from "@ant-design/icons";
 // import {useStore} from "../useStore"
 // import { useEffect, useCallback } from "react"
 import Api from "../services/Api";
-import { useStore } from "../useStore";
+import { useStore } from "../services/store/store";
 
 const Admin = () => {
   const [nestedData, setNestedData] = useState({});
   const [isLoading, setIsLoading] = useState({});
-  
+
   const [articles, setArticles] = useState([]);
   const [users, setUsers] = useState([]);
 
@@ -63,7 +64,6 @@ const Admin = () => {
     return () => (loading = false);
   }, []);
 
-  
   useEffect(() => {
     let loading = true;
     Api.getArticles().then((items) => {
@@ -73,7 +73,6 @@ const Admin = () => {
     });
     return () => (loading = false);
   }, []);
-
 
   const expandedRowRender = (record) => {
     const columns = [
@@ -87,7 +86,17 @@ const Admin = () => {
         dataIndex: "picture",
         key: "picture",
         render: (text, record) => {
-          return <img className="articleImg" src={record.picture} />;
+          if (record?.picture === undefined) {
+            return (<FileImageOutlined />);
+          } else
+          return (
+            <Image
+              width="84px"
+              height="64px"
+              className="articleImg"
+              src={record.picture}
+            />
+          );
         },
       },
       {
@@ -97,6 +106,7 @@ const Admin = () => {
         sorter: (a, b) => a.name.localeCompare(b.name),
         sortDirections: ["ascend", "descend", "ascend"],
       },
+      // console.log(record),
     ];
 
     const data = nestedData[record.id];
